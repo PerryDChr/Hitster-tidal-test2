@@ -29,7 +29,23 @@ jobs:
         run: |
            gradle projects
            gradle :app:tasks --all
+           
+      - name: Undersøg filer
+        run: |
+          pwd
+          find . -maxdepth 3 -type f | sort
+          echo "----- APP BUILD FILE -----"
+          cat app/build.gradle.kts
+          echo "----- SETTINGS -----"
+          cat settings.gradle.kts
+          echo "----- ROOT BUILD -----"
+          cat build.gradle.kts
 
+      - name: Undersøg Gradle
+        run: |
+          gradle projects
+          gradle :app:tasks --all
+          
       - name: Gem APK
         uses: actions/upload-artifact@v4
         with:
