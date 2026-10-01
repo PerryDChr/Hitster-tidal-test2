@@ -1,3 +1,5 @@
+println("HITSTER: app/build.gradle.kts bliver indlæst")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
