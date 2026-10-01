@@ -25,8 +25,10 @@ jobs:
         with:
           gradle-version: '8.10'
 
-      - name: Byg APK
-        run: gradle :app:assembleDebug
+      - name: Undersøg Gradle
+        run: |
+           gradle projects
+           gradle :app:tasks --all
 
       - name: Gem APK
         uses: actions/upload-artifact@v4
