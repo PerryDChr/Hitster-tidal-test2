@@ -25,9 +25,6 @@ jobs:
         with:
           gradle-version: '8.10'
 
-      - name: Undersøg AAR
-        run: gradle :app:checkDebugAarMetadata --stacktrace 2>&1 | grep -E "requires|requires.*SDK|minCompileSdk|AAR|FAILED|error" -C 3
-
       - name: Byg APK
         run: gradle :app:assembleDebug  
   
