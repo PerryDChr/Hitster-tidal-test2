@@ -2,9 +2,9 @@ package com.perrydchr.hitstertidal
 
 import android.content.Intent
 import android.media.AudioManager
-import android.media.KeyEvent
 import android.net.Uri
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
