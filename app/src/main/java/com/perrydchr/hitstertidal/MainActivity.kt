@@ -22,7 +22,9 @@ class MainActivity : ComponentActivity() {
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
     if (result.contents != null) {
-        answerText.text = "QR fundet:\n${result.contents}"
+        answerText.text = "Finder sang..."
+
+        lookupSpotifyTrack(result.contents)
     }
     }
 
