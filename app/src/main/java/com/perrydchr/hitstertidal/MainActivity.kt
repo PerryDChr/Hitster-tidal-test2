@@ -21,6 +21,8 @@ import org.json.JSONObject
 class MainActivity : ComponentActivity() {
 
     private var scannedSpotifyUrl: String? = null
+    private var scannedTitle: String? = null
+    private var scannedArtist: String? = null
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
     if (result.contents != null) {
     scannedSpotifyUrl = result.contents
