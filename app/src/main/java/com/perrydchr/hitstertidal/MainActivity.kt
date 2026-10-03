@@ -88,12 +88,21 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openTidal() {
-        val tidalUrl =
-            "https://tidal.com/browse/search?q=The%20Power%20of%20Love%20Huey%20Lewis"
-
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tidalUrl))
-        startActivity(intent)
+    val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse("tidal://search?q=The%20Power%20of%20Love%20Huey%20Lewis")
+        setPackage("com.aspiro.tidal")
     }
+
+    try {
+        startActivity(tidalIntent)
+    } catch (e: Exception) {
+        val webIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://tidal.com/browse/search?q=The%20Power%20of%20Love%20Huey%20Lewis")
+        )
+        startActivity(webIntent)
+    }
+}
 
     private fun stopPlayback() {
         val audioManager =
