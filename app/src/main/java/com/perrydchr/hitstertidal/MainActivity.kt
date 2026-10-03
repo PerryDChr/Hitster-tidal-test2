@@ -107,9 +107,7 @@ class MainActivity : ComponentActivity() {
     return
      }   
     val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse(
-    "tidal://search?q=" +
-        Uri.encode("$scannedTitle $scannedArtist")
+        data = Uri.parse("https://tidal.com/track/49250")
 )
         setPackage("com.aspiro.tidal")
     }
