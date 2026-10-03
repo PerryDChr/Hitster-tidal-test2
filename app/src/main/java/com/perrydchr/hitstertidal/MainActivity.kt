@@ -190,6 +190,12 @@ class MainActivity : ComponentActivity() {
             val json = JSONObject(body)
             val title = json.optString("title")
             val artist = json.optString("author_name")
+            val tidalSearchUrl =
+    "https://tidal.com/browse/search?q=" +
+        java.net.URLEncoder.encode(
+            "$title $artist",
+            "UTF-8"
+        )
 
             Handler(Looper.getMainLooper()).post {
                 answerText.text =
