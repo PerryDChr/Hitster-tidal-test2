@@ -108,7 +108,7 @@ class MainActivity : ComponentActivity() {
      }   
     val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("https://tidal.com/track/49250")
-)
+
         setPackage("com.aspiro.tidal")
     }
 
