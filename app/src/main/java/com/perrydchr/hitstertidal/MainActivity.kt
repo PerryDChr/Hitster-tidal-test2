@@ -20,6 +20,7 @@ import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
 
+    private var scannedSpotifyUrl: String? = null
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
     if (result.contents != null) {
         answerText.text = "Finder sang..."
