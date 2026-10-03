@@ -103,7 +103,26 @@ class MainActivity : ComponentActivity() {
             )
         )
     }
-    }
+
+    window.decorView.postDelayed({
+        val audioManager =
+            getSystemService(AUDIO_SERVICE) as AudioManager
+
+        audioManager.dispatchMediaKeyEvent(
+            KeyEvent(
+                KeyEvent.ACTION_DOWN,
+                KeyEvent.KEYCODE_MEDIA_PLAY
+            )
+        )
+
+        audioManager.dispatchMediaKeyEvent(
+            KeyEvent(
+                KeyEvent.ACTION_UP,
+                KeyEvent.KEYCODE_MEDIA_PLAY
+            )
+        )
+    }, 1500)
+}
 
     private fun stopPlayback() {
         val audioManager =
