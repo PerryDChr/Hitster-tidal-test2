@@ -87,7 +87,7 @@ class MainActivity : ComponentActivity() {
         setContentView(layout)
     }
 
-    private fun openTidal() {
+    
     private fun openTidal() {
     val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("https://tidal.com/track/326022876")
