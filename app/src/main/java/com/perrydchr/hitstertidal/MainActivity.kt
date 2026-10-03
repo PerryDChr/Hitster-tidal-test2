@@ -156,4 +156,46 @@ class MainActivity : ComponentActivity() {
             )
         )
     }
+ private fun lookupSpotifyTrack(spotifyUrl: String) {
+    Thread {
+        try {
+            val client = OkHttpClient()
+
+            val request = Request.Builder()
+                .url(
+                    "https://open.spotify.com/oembed?url=" +
+                        java.net.URLEncoder.encode(
+                            spotifyUrl,
+                            "UTF-8"
+                        )
+                )
+                .build()
+
+            val response = client.newCall(request).execute()
+            val body = response.body?.string()
+
+            if (!response.isSuccessful || body == null) {
+                throw Exception("Spotify lookup failed")
+            }
+
+            val json = JSONObject(body)
+            val title = json.optString("title")
+            val artist = json.optString("author_name")
+
+            Handler(Looper.getMainLooper()).post {
+                answerText.text =
+                    "Spotify fundet:\n$title\n$artist"
+            }
+
+        } catch (e: Exception) {
+            Handler(Looper.getMainLooper()).post {
+                Toast.makeText(
+                    this,
+                    "Kunne ikke hente Spotify-data",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }.start()
+ }   
 }
