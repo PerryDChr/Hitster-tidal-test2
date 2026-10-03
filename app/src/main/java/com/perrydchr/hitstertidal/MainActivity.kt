@@ -88,6 +88,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun openTidal() {
+    private fun openTidal() {
     val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("https://tidal.com/track/326022876")
         setPackage("com.aspiro.tidal")
@@ -121,9 +122,16 @@ class MainActivity : ComponentActivity() {
                 KeyEvent.KEYCODE_MEDIA_PLAY
             )
         )
-    }, 1500)
-}
 
+        window.decorView.postDelayed({
+            val returnIntent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            }
+            startActivity(returnIntent)
+        }, 1000)
+
+    }, 1500)
+    }
     private fun stopPlayback() {
         val audioManager =
             getSystemService(AUDIO_SERVICE) as AudioManager
