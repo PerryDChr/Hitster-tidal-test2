@@ -192,6 +192,9 @@ class MainActivity : ComponentActivity() {
             val json = JSONObject(body)
             val title = json.optString("title")
             val artist = json.optString("author_name")
+
+            scannedTitle = title
+            scannedArtist = artist
             val tidalSearchUrl =
     "https://tidal.com/browse/search?q=" +
         java.net.URLEncoder.encode(
