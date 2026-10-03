@@ -175,7 +175,7 @@ class MainActivity : ComponentActivity() {
 
             val request = Request.Builder()
                 .url(
-                    "https://open.spotify.com/oembed?url=" +
+                    "https://api.song.link/v1-alpha.1/links?url=" +
                         java.net.URLEncoder.encode(
                             spotifyUrl,
                             "UTF-8"
@@ -187,36 +187,58 @@ class MainActivity : ComponentActivity() {
             val body = response.body?.string()
 
             if (!response.isSuccessful || body == null) {
-                throw Exception("Spotify lookup failed")
+                throw Exception("Songlink lookup failed")
             }
 
             val json = JSONObject(body)
-            val title = json.optString("title")
-            val artist = json.optString("author_name")
+
+            val entityUniqueId =
+                json.optJSONObject("linksByPlatform")
+                    ?.optJSONObject("tidal")
+                    ?.optString("url")
+
+            val title =
+                json.optJSONObject("entitiesByUniqueId")
+                    ?.values()
+                    ?.firstOrNull()
+                    ?.let {
+                        (it as? JSONObject)?.optString("title")
+                    }
+                    ?: scannedTitle
+                    ?: ""
+
+            val artist =
+                json.optJSONObject("entitiesByUniqueId")
+                    ?.values()
+                    ?.firstOrNull()
+                    ?.let {
+                        (it as? JSONObject)?.optString("artistName")
+                    }
+                    ?: scannedArtist
+                    ?: ""
 
             scannedTitle = title
             scannedArtist = artist
-            val tidalSearchUrl =
-    "https://tidal.com/browse/search?q=" +
-        java.net.URLEncoder.encode(
-            "$title $artist",
-            "UTF-8"
-        )
 
             Handler(Looper.getMainLooper()).post {
-                answerText.text =
-                    "Sang fundet:\n$title\n$artist"
+                if (!entityUniqueId.isNullOrBlank()) {
+                    answerText.text =
+                        "TIDAL fundet:\n$title\n$artist\n$entityUniqueId"
+                } else {
+                    answerText.text =
+                        "Sang fundet, men ingen TIDAL-version:\n$title\n$artist"
+                }
             }
 
         } catch (e: Exception) {
             Handler(Looper.getMainLooper()).post {
                 Toast.makeText(
                     this,
-                    "Kunne ikke hente Spotify-data",
+                    "Kunne ikke finde TIDAL-versionen",
                     Toast.LENGTH_LONG
                 ).show()
             }
         }
     }.start()
- }   
+}
 }
