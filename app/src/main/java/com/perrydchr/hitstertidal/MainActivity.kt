@@ -204,7 +204,7 @@ class MainActivity : ComponentActivity() {
 
             Handler(Looper.getMainLooper()).post {
                 answerText.text =
-                    "Spotify fundet:\n$title\n$artist"
+                    "Sang fundet:\n$title\n$artist"
             }
 
         } catch (e: Exception) {
