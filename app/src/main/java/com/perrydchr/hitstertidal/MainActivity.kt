@@ -100,6 +100,10 @@ class MainActivity : ComponentActivity() {
 
     
     private fun openTidal() {
+     if (scannedSpotifyUrl == null) {
+    answerText.text = "Scan et Hitster-kort først"
+    return
+     }   
     val tidalIntent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("https://tidal.com/track/326022876")
         setPackage("com.aspiro.tidal")
