@@ -11,6 +11,12 @@ import android.widget.TextView
 import androidx.activity.ComponentActivity
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import org.json.JSONObject
 
 class MainActivity : ComponentActivity() {
 
