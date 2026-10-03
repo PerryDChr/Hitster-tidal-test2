@@ -14,6 +14,12 @@ import com.journeyapps.barcodescanner.ScanOptions
 
 class MainActivity : ComponentActivity() {
 
+    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
+    if (result.contents != null) {
+        answerText.text = "QR fundet:\n${result.contents}"
+    }
+    }
+
     private lateinit var answerText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
