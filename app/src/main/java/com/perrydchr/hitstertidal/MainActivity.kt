@@ -35,6 +35,20 @@ class MainActivity : ComponentActivity() {
             textSize = 28f
         }
 
+        val scanButton = Button(this).apply {
+            text = "📷 SCAN QR-KODE"
+            setOnClickListener {
+        val options = ScanOptions().apply {
+            setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+            setPrompt("Scan Hitster QR-koden")
+            setBeepEnabled(true)
+            setOrientationLocked(false)
+        }
+
+        barcodeLauncher.launch(options)
+    }
+   }
+        
         val playButton = Button(this).apply {
             text = "▶ AFSPIL I TIDAL"
             setOnClickListener {
@@ -64,6 +78,7 @@ class MainActivity : ComponentActivity() {
         }
 
         layout.addView(title)
+        layout.addView(scanButton)
         layout.addView(playButton)
         layout.addView(stopButton)
         layout.addView(answerButton)
